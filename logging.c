@@ -74,18 +74,18 @@ strrep(const char *s1, const char *s2, const char *s3)
      */
     size_t s1_without_s2_len = s1_len - count * s2_len;
     size_t s3_len = strlen(s3);
-    size_t s1_with_s3_len = s1_without_s2_len + count * s3_len;
+    size_t newstr_len = s1_without_s2_len + count * s3_len;
     if (s3_len &&
-        ((s1_with_s3_len <= s1_without_s2_len) || (s1_with_s3_len + 1 == 0)))
+        ((newstr_len <= s1_without_s2_len) || (newstr_len + 1 == 0)))
         /* Overflow. */
         return 0;
     
-    char *s1_with_s3 = (char *)malloc(s1_with_s3_len + 1); /* w/ terminator */
-    if (!s1_with_s3)
+    char *newstr = (char *)malloc(newstr_len + 1); /* w/ terminator */
+    if (!newstr)
         /* ENOMEM, but no good way to signal it. */
         return 0;
     
-    char *dst = s1_with_s3;
+    char *dst = newstr;
     const char *start_substr = s1;
     size_t i;
     for (i = 0; i != count; ++i) {
@@ -101,7 +101,7 @@ strrep(const char *s1, const char *s2, const char *s3)
     /* copy remainder of s1, including trailing '\0' */
     size_t remains = s1_len - (start_substr - s1) + 1;
     memcpy(dst, start_substr, remains);
-    return s1_with_s3;
+    return newstr;
 }
 
 void get_syslog_logger(syslog_fun *logger,
