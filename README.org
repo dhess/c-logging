@@ -1,0 +1,39 @@
+* WHAT
+  logging.[ch] provides a syslog(3)-compatible logging interface for
+  logging to stderr. It could be easily extended to support other
+  forms of logging, as well: stdout, file, network, etc.
+
+* WHY
+  The syslog(3) interface is simple, yet robust. However, sometimes
+  it's useful to log to stderr rather than to the system logger, e.g.,
+  in an interactive command-line application, or when debugging a
+  service running in the foreground. 
+
+  Some UNIX systems support simultaneous logging both to syslog and
+  stderr, but not stderr alone. The logging implementation provided
+  here permits stderr-only logging using an interface that's
+  compatible with the (relevant parts of the) syslog(3) interface.
+
+  See logging.h for the API documentation, and logtest.c for examples
+  of how to use it in your own programs.
+
+* INSTALLING
+  The source code provided isn't a library as such, so it doesn't need
+  to be installed. Just copy the logging.[ch] source files into your
+  project. (Also see LICENSE below.)
+
+  The source has no dependencies beyond the ISO C standard library and
+  a syslog interface that includes the vsyslog(3) function.
+
+  The included Makefile builds an example application, logtest, whose
+  source code demonstrates how to use the logging interface.
+
+* LICENSE
+  The code included here has no license; it is dedicated to the public
+  domain. See the file COPYING, included in this distribution, for the
+  specifics.
+
+* CONTACT
+  Drew Hess <dhess-src@bothan.net>
+
+  http://drewhess.com/
