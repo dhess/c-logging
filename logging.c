@@ -175,7 +175,7 @@ set_stderr_level_prefix_fun(level_prefix_fun new_fn)
 }
 
 static void
-_stderr_vsyslog(int perrno, int priority, const char *format, va_list args)
+perrno_stderr_vsyslog(int perrno, int priority, const char *format, va_list args)
 {
     if (!(LOG_MASK(priority) & stderr_logmask))
         return;
@@ -194,7 +194,7 @@ stderr_vsyslog(int priority, const char *format, va_list args)
 {
     /* Preserving errno isn't strictly required, but it's nice. */
     int perrno = errno;
-    _stderr_vsyslog(perrno, perrno, format, args);
+    perrno_stderr_vsyslog(perrno, perrno, format, args);
     errno = perrno;
 }
 
@@ -205,7 +205,7 @@ stderr_syslog(int priority, const char *format, ...)
     int perrno = errno;
     va_list ap;
     va_start(ap, format);
-    _stderr_vsyslog(perrno, priority, format, ap);
+    perrno_stderr_vsyslog(perrno, priority, format, ap);
     va_end(ap);
     errno = perrno;
 }
