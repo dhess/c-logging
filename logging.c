@@ -194,7 +194,7 @@ stderr_vsyslog(int priority, const char *format, va_list args)
 {
     /* Preserving errno isn't strictly required, but it's nice. */
     int perrno = errno;
-    perrno_stderr_vsyslog(perrno, perrno, format, args);
+    perrno_stderr_vsyslog(perrno, priority, format, args);
     errno = perrno;
 }
 
